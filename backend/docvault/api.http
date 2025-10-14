@@ -1,0 +1,30 @@
+POST http://127.0.0.1:8000/api/register/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "first_name": "Dr. Johny",
+  "last_name":"Sins",
+  "username": "sins123",
+  "phone_number": "1010101010",
+  "employee_id":"pornhub001",
+  "password": "dani435@",
+  "confirm_password":"dani435@"
+}
+
+###
+POST http://127.0.0.1:8000/api/token/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone_number":"1010101010",
+    "password":"dani435@"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/token/refresh/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MTA2MTgxMCwiaWF0IjoxNzYwNDU3MDEwLCJqdGkiOiI2NmY0YjUzNzFmOTg0NWZmODY2M2JhYzg1ZjE4YWI4OSIsInVzZXJfaWQiOjV9.3Ghn8rHsSIdiYD6ALPDc5mrQX9DSEzKzjVVdAWYtnko"
+}

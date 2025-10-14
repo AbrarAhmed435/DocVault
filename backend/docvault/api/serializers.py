@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import *
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import get_user_model
@@ -53,7 +53,18 @@ class PhoneTokenObtainPairSerializer(serializers.Serializer):
             "access":str(refresh.access_token)
         }
             
-
+class VisitSerializer(serializers.ModelSerializer):
+    visit_no=serializers.IntegerField(read_only=True)
+    class Meta:
+        model=Visit
+        fields=['id','visit_no','diagnosis','treatment','test','date_created']
+        
+class PatientSerializer(serializers.ModelSerializer):
+    visits=VisitSerializer(many=True,read_only=True)
+    
+    class Meta:
+        model=Patient
+        fields=['id','name','age','gender','weight_kg','height_cm','visits']
 
 # class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 #     username_field='phone_number'

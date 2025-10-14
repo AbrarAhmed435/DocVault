@@ -7,4 +7,6 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('token/',PhoneTokenObtainPairView.as_view(),name='get_token'),
     path('token/refresh/',TokenRefreshView.as_view(),name="refresh"),
+    path('addpatients/',PatientListCreateView.as_view(),name='patients'),
+    path('patients/<int:patient_id>/visits/',VisitListCreateView.as_view(),name='patient_visites'),
 ]

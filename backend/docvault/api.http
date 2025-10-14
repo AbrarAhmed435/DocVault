@@ -28,3 +28,29 @@ Content-Type: application/json
 {
   "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MTA2MTgxMCwiaWF0IjoxNzYwNDU3MDEwLCJqdGkiOiI2NmY0YjUzNzFmOTg0NWZmODY2M2JhYzg1ZjE4YWI4OSIsInVzZXJfaWQiOjV9.3Ghn8rHsSIdiYD6ALPDc5mrQX9DSEzKzjVVdAWYtnko"
 }
+
+###
+POST http://127.0.0.1:8000/api/addpatients/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNDY3OTU4LCJpYXQiOjE3NjA0NjQzNTgsImp0aSI6IjU3YjlkZGE0NTNmYTQ0OWM5ZDlmMWJlNzdiMGUwMDNkIiwidXNlcl9pZCI6N30.ZDE8-oqj5f1HAiihyYHpOCtaF7oSGJ8CUN4YSZHgtxk
+
+{
+  "name":"Tawheed",
+  "age":"20",
+  "gender":"M",
+  "weight_kg":"100",
+  "height_cm":"175"
+}
+
+###
+POST http://127.0.0.1:8000/api/patients/3/visits/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNDY3OTU4LCJpYXQiOjE3NjA0NjQzNTgsImp0aSI6IjU3YjlkZGE0NTNmYTQ0OWM5ZDlmMWJlNzdiMGUwMDNkIiwidXNlcl9pZCI6N30.ZDE8-oqj5f1HAiihyYHpOCtaF7oSGJ8CUN4YSZHgtxk
+
+{
+  "diagnosis": "Flu",
+  "treatment": "Rest and hydration",
+  "test": "Blood test"
+}
+
+

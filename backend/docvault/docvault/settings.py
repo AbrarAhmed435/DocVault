@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # Third-party apps
     'rest_framework',
     'rest_framework_simplejwt',
-
+    'corsheaders',
     # Local apps
     'api',
 ]
@@ -59,14 +59,20 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',   # 👈 add here
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",   # Vite dev server
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'docvault.urls'
 

@@ -39,6 +39,9 @@ class PhoneTokenObtainPairSerializer(serializers.Serializer):
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid phone number or password")
         
+        # ✅ Check hashed password properly
+        if not user.check_password(password):
+            raise serializers.ValidationError("Invalid phone number or password")
         #Check if user is active
         if not user.is_active:
             raise serializers.ValidationError("User account is inactive")

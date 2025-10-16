@@ -1,68 +1,100 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+*{
+  box-sizing: border-box;
   margin: 0;
+}
+body{
+  background-color: rgba(220, 241, 220, 0.923);
+}
+.home{
+  /* background-color: rgb(12, 80, 153); */
+  padding: 20px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.welcome{
+  /* width: auto; */
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+
+}
+.welcome span{
+  background-color: rgb(13, 136, 243);
+  border-radius: 10px;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.Add-patient {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 920px;
+}
+.Add-patient form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
-button {
+.Add-patient input,
+.Add-patient select {
+  max-width: 100%;
+  padding: 12px 15px;
+  font-size: 15px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.Add-patient input:focus,
+.Add-patient select:focus {
+  border-color: #00897b;
+  box-shadow: 0 0 6px rgba(0, 137, 123, 0.3);
+}
+
+.Add-patient button {
+  padding: 12px;
+  background: #00897b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.Add-patient button:hover {
+  transform: scale(1.05);
+  background: #00796b;
+}
+
+.Add-patient button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .Add-patient {
+    width: 90%;
+    padding: 25px;
   }
-  a:hover {
-    color: #747bff;
+
+  .welcome {
+    font-size: 1rem;
   }
-  button {
-    background-color: #f9f9f9;
+}
+@media (max-width:400px){
+  .welcome{
+    font-size: 0.5rem;
   }
 }

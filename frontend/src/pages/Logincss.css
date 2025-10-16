@@ -1,0 +1,63 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  /* Dark background fallback */
+
+  /* Background image */
+  background-image: url('4433940.jpg');
+  background-size: cover;       /* Make it cover the whole container */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Don’t repeat the image */
+
+  /* Optional overlay to darken image for readability */
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.linkspan{
+  text-decoration: none;
+  color:aqua
+}
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* semi-transparent overlay */
+  z-index: 0;
+}
+
+.login-container form {
+  position: relative; /* bring form above overlay */
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.381); /* slightly transparent white */
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 40vh;
+  
+}
+.login-container input{
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.login-container button{
+    height: 50px;
+    border: 5px;
+    background-color: rgb(12, 155, 7);
+    border-radius: 10px;
+    transition: transform 0.3s ease,box-shadow 0.3s ease;
+    padding: 5px;
+    &:hover{
+        transform: scale(1.02);
+        box-shadow: 5px 5px 5px black;
+    }
+}

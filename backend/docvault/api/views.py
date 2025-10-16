@@ -8,6 +8,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 class RegisterView(generics.CreateAPIView):
     serializer_class=RegisterSerializer
+    authentication_classes=[]
+    permission_classes=[permissions.AllowAny]
     
     def create(self, request, *args, **kwargs):
         serializer=self.get_serializer(data=request.data)
@@ -17,6 +19,33 @@ class RegisterView(generics.CreateAPIView):
         return Response(
             {"message":f"Doctor with Employeeid-{user.employee_id} created"},status=status.HTTP_201_CREATED
         )
+# class RegisterView(generics.CreateAPIView):
+#     serializer_class = RegisterSerializer
+#     authentication_classes = []
+#     permission_classes = [permissions.AllowAny]
+    
+#     def create(self, request, *args, **kwargs):
+#         print("=== REGISTER VIEW REACHED ===")
+#         print("Request data:", request.data)
+        
+#         serializer = self.get_serializer(data=request.data)
+        
+#         print("=== BEFORE VALIDATION ===")
+#         if not serializer.is_valid():
+#             print("=== VALIDATION ERRORS ===")
+#             print("Errors:", serializer.errors)
+#             print("Error details:", dict(serializer.errors))  # Fixed this line
+#             # This will raise the exception and return 400
+#             serializer.is_valid(raise_exception=True)
+        
+#         print("=== AFTER VALIDATION - SAVING ===")
+#         user = serializer.save()
+#         print("=== USER CREATED ===")
+        
+#         return Response(
+#             {"message": f"Doctor with Employeeid-{user.employee_id} created"}, 
+#             status=status.HTTP_201_CREATED
+#         )
 
 class PhoneTokenObtainPairView(TokenObtainPairView):
     serializer_class=PhoneTokenObtainPairSerializer

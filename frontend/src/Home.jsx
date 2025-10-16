@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoAddSharp } from "react-icons/io5";
 import api from "./api";
+import { FIRST_NAME } from "./constants";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -9,89 +11,151 @@ export default function Home() {
   const [gender, setGender] = useState("");
   const [weight_kg, setWeight] = useState();
   const [height_cm, setHeight] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [showForm, setShowForm] = useState(false); // 👈 new state to toggle
+  const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleAdding= async (e)=>{
-    e.preventDefault();
+  useEffect(() => {
+    const fn = localStorage.getItem(FIRST_NAME) || "";
+    setFirstName(fn);
+  }, []);
 
-    try{
-        const res=await api.post("/api/addpatients/",{
-          name,
-          age,
-          gender,
-          weight_kg,
-          height_cm
-        });
-        if(res.status===201){
-            toast.success("Patient Added Successfully",{style:{color: "white"},});
-        }
-    }catch(error){
-        console.log(error);
+  const fetchPatients = async () => {
+    try {
+      const res = await api.get("/api/addpatients/");
+      if (res.status === 200) {
+        setPatients(res.data);
+      }
+    } catch (error) {
+      toast.error("Failed to fetch Patients");
     }
-  }
+  };
+  useEffect(() => {
+    fetchPatients();
+  }, []);
 
+  const handleAdding = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/api/addpatients/", {
+        name,
+        age,
+        gender,
+        weight_kg,
+        height_cm,
+      });
+      if (res.status === 201) {
+        toast.success("Patient Added Successfully", {
+          style: { color: "white" },
+        });
+        setName("");
+        setAge("");
+        setGender("");
+        setWeight("");
+        setHeight("");
+        setShowForm(false); // hide form after submission
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    fetchPatients();
+  };
 
   return (
     <div className="home">
-         <ToastContainer position="top-center" autoClose={2000} />
-        <div className="welcome"><span>Welcome </span> </div>
+      <ToastContainer position="top-center" autoClose={2000} />
+      <div className="welcome">
+        <span>Welcome Dr. {firstName}</span>
+      </div>
+
       <div className="Add-patient">
-        <form onSubmit={handleAdding}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+        <h4
+          className="add-title"
+          onClick={() => setShowForm(!showForm)}
+          style={{ cursor: "pointer" }}
+        >
+          Add Patient{" "}
+          <IoAddSharp
+            style={{
+              verticalAlign: "middle",
+              transform: showForm ? "rotate(45deg)" : "rotate(0deg)", // rotate icon when open
+              transition: "transform 0.3s",
+            }}
           />
-          <input
-            type="number"
-            placeholder="Enter Age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            required
-          />
-          <select
-            name="gender"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          >
-            <option value="">-- Select Gender --</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-          </select>
-          <input type="number"
-          placeholder="Weight(kg)"
-          step="0.1"
-          value={weight_kg}
-          onChange={(e)=>setWeight(e.target.value)}
-          required
-          />
-          <input type="number" 
-          step="0.1"
-          placeholder="Enter Height(cm)"
-          value={height_cm}
-          onChange={(e)=>setHeight(e.target.value)}
-          required
-          />
-          <button>Submit</button>
-        </form>
+        </h4>
+
+        {showForm && (
+          <form onSubmit={handleAdding} className="patient-form">
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              placeholder="Enter Age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              required
+            />
+            <select
+              name="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+            >
+              <option value="">-- Select Gender --</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+              <option value="O">Other</option>
+            </select>
+            <input
+              type="number"
+              placeholder="Weight (kg)"
+              step="0.1"
+              value={weight_kg}
+              onChange={(e) => setWeight(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              step="0.1"
+              placeholder="Enter Height (cm)"
+              value={height_cm}
+              onChange={(e) => setHeight(e.target.value)}
+              required
+            />
+            <button>Submit</button>
+          </form>
+        )}
+      </div>
+      <div className="patient_list">
+        <h3>My Patients</h3>
+        {patients.length === 0 ? (
+          <p className="no-patient">No Patients found</p>
+        ) : (
+          <ul>
+            {patients.map((p) => (
+              // <li key={p.id}>{p.name}{" "}{p.gender=='M'?"Male":"Female"}</li>
+              <li key={p.id}>
+                <p className="name">{p.name}</p>
+                <br />
+                <p>
+                  {p.gender === "M"
+                    ? "Male"
+                    : p.gender === "F"
+                    ? "Female"
+                    : "Other"}
+                    {":"}{p.age}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
 }
-
-/* 
-POST http://127.0.0.1:8000/api/addpatients/ HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNDY3OTU4LCJpYXQiOjE3NjA0NjQzNTgsImp0aSI6IjU3YjlkZGE0NTNmYTQ0OWM5ZDlmMWJlNzdiMGUwMDNkIiwidXNlcl9pZCI6N30.ZDE8-oqj5f1HAiihyYHpOCtaF7oSGJ8CUN4YSZHgtxk
-
-{
-  "name":"Tawheed",
-  "age":"20",
-  "gender":"M",
-  "weight_kg":"100",
-  "height_cm":"175"
-}
-*/

@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { ACCESS_TOKEN, FIRST_NAME, REFRESH_TOKEN } from "../constants";
 import "react-toastify/dist/ReactToastify.css";
 import './Logincss.css'
 
@@ -10,6 +10,7 @@ export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [name,setName]=useState("");
 
   const navigate = useNavigate();
 
@@ -27,6 +28,9 @@ export default function Login() {
       if (res.status === 200) {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+        localStorage.setItem(FIRST_NAME,res.data.first_name);
+        // setName(res.data.first_namae)
+        console.log(res.data.id);
           toast.success("Login successful!", {
           onClose: () => navigate("/"), // Navigate only after toast closes
         });

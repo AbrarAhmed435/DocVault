@@ -81,12 +81,75 @@ body{
 .Add-patient button:active {
   transform: scale(0.98);
 }
+.Add-patient h4{
+  margin-bottom: 5px;
+  color:indigo
+}
+.patient_list {
+  background-color: #f9f9f9; /* Light background to distinguish the section */
+  border-radius: 10px;        /* Rounded corners for a modern look */
+  padding: 20px;              /* Space inside the container */
+  margin-top: 30px;           /* Space above the section */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  width: 100%;
+  max-width: 400px;           /* Limit the width */
+  
+}
+
+.patient_list h3 {
+  margin-bottom: 15px;        /* Space below the heading */
+  color: #333;                /* Darker color for heading */
+  font-size: 1.5rem;          /* Slightly bigger font for emphasis */
+  text-align: center;         /* Center the heading */
+}
+
+.patient_list no-patient {
+  text-align: center;         /* Center text when no patients */
+  color: #777;                /* Gray color for "No Patients found" */
+  font-style: italic;         /* Italic to make it subtle */
+}
+.name{
+  font-size: 2rem;
+  display: flex;
+  /* align-items: right; */
+}
+.patient_list ul {
+  list-style-type: none;      /* Remove default bullet points */
+  padding: 0;                 /* Remove default padding */
+}
+
+.patient_list li {
+  padding: 10px 15px;         /* Space inside each list item */
+  margin-bottom: 10px;        /* Space between items */
+  background-color: #fff;     /* White background for each patient */
+  border-radius: 8px;         /* Rounded corners for list items */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Small shadow for subtle elevation */
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
+  cursor: pointer;            /* Indicate it’s clickable if needed */
+}
+
+.patient_list li:hover {
+  transform: translateY(-2px);       /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Stronger shadow on hover */
+}
+
 
 /* Responsive Design */
 @media (max-width: 600px) {
   .Add-patient {
     width: 90%;
     padding: 25px;
+  }
+  .welcome{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .welcome span{
+    align-items: center;
+    width: 100%;
+    text-align: center;
   }
 
   .welcome {

@@ -4,9 +4,9 @@ Content-Type: application/json
 {
   "first_name": "Dr. Johny",
   "last_name":"Sins",
-  "username": "sins123",
-  "phone_number": "1010101010",
-  "employee_id":"pornhub001",
+  "username": "sins1253",
+  "phone_number": "1050101010",
+  "employee_id":"brazers001",
   "password": "dani435@",
   "confirm_password":"dani435@"
 }
@@ -16,8 +16,8 @@ POST http://127.0.0.1:8000/api/token/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "phone_number":"1010101010",
-    "password":"dani435@"
+    "phone_number":"9149686113",
+    "password":"chips123"
 }
 
 ###
@@ -32,10 +32,10 @@ Content-Type: application/json
 ###
 POST http://127.0.0.1:8000/api/addpatients/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNDY3OTU4LCJpYXQiOjE3NjA0NjQzNTgsImp0aSI6IjU3YjlkZGE0NTNmYTQ0OWM5ZDlmMWJlNzdiMGUwMDNkIiwidXNlcl9pZCI6N30.ZDE8-oqj5f1HAiihyYHpOCtaF7oSGJ8CUN4YSZHgtxk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNjQ4ODc0LCJpYXQiOjE3NjA2NDUyNzQsImp0aSI6Ijk5Yzc1ZmQ4NDkwMTQzMzY5ODdmYjgwMmJjODIwNjAwIiwidXNlcl9pZCI6MTV9.uGEz_iBcqvO0a_zcs2SxOgmjqIZm5dWXvRrDfSnUDMs
 
 {
-  "name":"Tawheed",
+  "name":"Pathna",
   "age":"20",
   "gender":"M",
   "weight_kg":"100",
@@ -43,14 +43,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 }
 
 ###
-POST http://127.0.0.1:8000/api/patients/3/visits/ HTTP/1.1
+GET http://127.0.0.1:8000/api/patients/28/visits/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNDY3OTU4LCJpYXQiOjE3NjA0NjQzNTgsImp0aSI6IjU3YjlkZGE0NTNmYTQ0OWM5ZDlmMWJlNzdiMGUwMDNkIiwidXNlcl9pZCI6N30.ZDE8-oqj5f1HAiihyYHpOCtaF7oSGJ8CUN4YSZHgtxk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzI4NzIwLCJpYXQiOjE3NjA3MjUxMjAsImp0aSI6IjRkMDJmNTI5ZmE2MzQ2MmQ4MjE3MDcxZGJlYzgzMGUyIiwidXNlcl9pZCI6MTV9.vY--tNo1IbdVAl-QUxtq3UU6M8rJMb-XHeYNAu25e-M
 
 {
-  "diagnosis": "Flu",
+  "diagnosis": "Diabetese",
   "treatment": "Rest and hydration",
   "test": "Blood test"
 }
 
 
+
+###
+GET http://127.0.0.1:8000/api/addpatients/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzI4NzIwLCJpYXQiOjE3NjA3MjUxMjAsImp0aSI6IjRkMDJmNTI5ZmE2MzQ2MmQ4MjE3MDcxZGJlYzgzMGUyIiwidXNlcl9pZCI6MTV9.vY--tNo1IbdVAl-QUxtq3UU6M8rJMb-XHeYNAu25e-M
+
+###
+PUT http://127.0.0.1:8000/api/patients/20/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNjQ3NDU1LCJpYXQiOjE3NjA2NDM4NTUsImp0aSI6IjFlMTZiZTI4MzM5MjQ3YWNhMzA0MTRhMWMzNTVhNTlhIiwidXNlcl9pZCI6MTV9.--QIckpdvw3P6__QEPYMPZojCO2-0x2HFRDHW13C2wQ
+
+{
+  "name":"Hello",
+  "age":"20",
+  "gender":"M",
+  "weight_kg":"100",
+  "height_cm":"175"
+}

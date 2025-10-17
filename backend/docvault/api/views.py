@@ -62,6 +62,16 @@ class PatientListCreateView(generics.ListCreateAPIView):
         serializer.save(doctor=self.request.user)
 
 
+class PatientDeleteUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Patient.objects.all()
+    serializer_class=PatientSerializer
+    permission_classes=[permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        # Ensuere docter can only access their own patients
+        
+        return Patient.objects.filter(doctor=self.request.user)
+
 class VisitListCreateView(generics.ListCreateAPIView):
     serializer_class=VisitSerializer
     permission_classes=[permissions.IsAuthenticated]

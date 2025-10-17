@@ -53,7 +53,12 @@ class PhoneTokenObtainPairSerializer(serializers.Serializer):
         
         return {
             "refresh":str(refresh),
-            "access":str(refresh.access_token)
+            "access":str(refresh.access_token),
+             # "user_id": user.id,  Sometimes you might want to      return user info in the response or access it later:     
+            # "email": user.email,
+            "first_name":user.first_name,
+            "id":user.id
+            
         }
             
 class VisitSerializer(serializers.ModelSerializer):

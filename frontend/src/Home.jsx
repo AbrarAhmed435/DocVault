@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoAddSharp } from "react-icons/io5";
 import api from "./api";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { FIRST_NAME } from "./constants";
 
 export default function Home() {
@@ -34,6 +35,21 @@ export default function Home() {
   useEffect(() => {
     fetchPatients();
   }, []);
+
+  const handleDelete = async (id) => {
+      const confirmDelete = window.confirm("⚠️ Are you sure you want to delete this patient?");
+  
+  if (!confirmDelete) return; 
+    try {
+      const res = await api.delete(`/api/patients/${id}/`);
+      if (res.status === 204) {
+        toast.success("Patient Deleted");
+      }
+    } catch (error) {
+      toast.error("Error occured");
+    }
+    fetchPatients();
+  };
 
   const handleAdding = async (e) => {
     e.preventDefault();
@@ -149,8 +165,12 @@ export default function Home() {
                     : p.gender === "F"
                     ? "Female"
                     : "Other"}
-                    {":"}{p.age}
+                  {":"}
+                  {p.age}
                 </p>
+                <button className="patient_delete_button" onClick={() => handleDelete(p.id)}>
+                  <RiDeleteBin6Line style={{color:'red'}} />
+                </button>
               </li>
             ))}
           </ul>

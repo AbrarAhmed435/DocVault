@@ -43,22 +43,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 }
 
 ###
-GET http://127.0.0.1:8000/api/patients/28/visits/ HTTP/1.1
+POST http://127.0.0.1:8000/api/patients/28/visits/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzI4NzIwLCJpYXQiOjE3NjA3MjUxMjAsImp0aSI6IjRkMDJmNTI5ZmE2MzQ2MmQ4MjE3MDcxZGJlYzgzMGUyIiwidXNlcl9pZCI6MTV9.vY--tNo1IbdVAl-QUxtq3UU6M8rJMb-XHeYNAu25e-M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzMxNjAwLCJpYXQiOjE3NjA3MjgwMDAsImp0aSI6IjMxN2JhNzA3ZTliZTRhNDM5MTJiZjYwZjU4YWVkMzljIiwidXNlcl9pZCI6MTV9.RrpilZnsWm2R9-pUUn2Q-qTmrKY9Jx57SV-yqaHVAvU
 
 {
-  "diagnosis": "Diabetese",
+  "diagnosis": "Fever",
   "treatment": "Rest and hydration",
   "test": "Blood test"
 }
 
+###
+
+POST http://127.0.0.1:8000/api/patients/28/visits/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzMxNjAwLCJpYXQiOjE3NjA3MjgwMDAsImp0aSI6IjMxN2JhNzA3ZTliZTRhNDM5MTJiZjYwZjU4YWVkMzljIiwidXNlcl9pZCI6MTV9.RrpilZnsWm2R9-pUUn2Q-qTmrKY9Jx57SV-yqaHVAvU
 
 
 ###
 GET http://127.0.0.1:8000/api/addpatients/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzI4NzIwLCJpYXQiOjE3NjA3MjUxMjAsImp0aSI6IjRkMDJmNTI5ZmE2MzQ2MmQ4MjE3MDcxZGJlYzgzMGUyIiwidXNlcl9pZCI6MTV9.vY--tNo1IbdVAl-QUxtq3UU6M8rJMb-XHeYNAu25e-M
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYwNzMxNjAwLCJpYXQiOjE3NjA3MjgwMDAsImp0aSI6IjMxN2JhNzA3ZTliZTRhNDM5MTJiZjYwZjU4YWVkMzljIiwidXNlcl9pZCI6MTV9.RrpilZnsWm2R9-pUUn2Q-qTmrKY9Jx57SV-yqaHVAvU
 ###
 PUT http://127.0.0.1:8000/api/patients/20/ HTTP/1.1
 Content-Type: application/json

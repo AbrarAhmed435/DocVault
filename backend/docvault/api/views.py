@@ -4,7 +4,11 @@ from .serializers import *
 from .models import *
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
+from openai import OpenAI
+
+client=OpenAI()
 
 class RegisterView(generics.CreateAPIView):
     serializer_class=RegisterSerializer
@@ -85,6 +89,77 @@ class VisitListCreateView(generics.ListCreateAPIView):
         patient=Patient.objects.get(id=patient_id,doctor=self.request.user)
         serializer.save(patient=patient)
 
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def prompt_ai(request):
+    content = request.data.get("content", [])
+    print(content)
+
+    if not isinstance(content, list):
+        return Response(
+            {"error": "Invalid format, expected a list of visits"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Convert visits list into readable text for GPT
+    visits_text = "\n".join([
+        f"Visit {v.get('visit_no', '?')}: Diagnosis - {v.get('diagnosis', 'N/A')}, "
+        f"Treatment - {v.get('treatment', 'N/A')}, "
+        f"Test - {v.get('test', 'None')}, "
+        f"Date - {v.get('date_created', 'N/A')}"
+        for v in content
+    ])
+
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a medical assistant. Summarize the patient's visit history clearly for a doctor in a sentence like what is the issue with patient and what treament was give.Also what should be further done with patient"
+        },
+        {
+            "role": "user",
+            "content": f"Here are the patient's visits:\n{visits_text}"
+        }
+    ]
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages,
+        )
+        summary = response.choices[0].message.content
+        print(summary)
+        return Response({"summary": summary}, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        print("OpenAI Error:", e)
+        return Response(
+            {"error": f"An error occurred with OpenAI: {str(e)}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+# @api_view(["POST"])
+# @permission_classes([permissions.IsAuthenticated])
+# def prompt_ai(request):
+#     content=request.data.get("content",[])
+#     print(content)
+    
+#     if not isinstance(content,list):
+#         return Response({"error":"Invalid format, Expected list of messages"},status=status.HTTP_400_BAD_REQUEST)
+    
+    
+#     content.insert(0,{
+#         "role":"assistant",
+#         "content":"Give summary of patient visits so doctor can understand patients history"})
+#     try:
+#         response=client.chat.completions.create(
+#             model="gpt-4o-mini",
+#             messages=content
+#         )
+#         summary=response.choices[0].message.content
+#         return Response({"summary":summary},status=status.HTTP_200_OK)
+#     except Exception as e:
+#         print(e)
+#         return Response({"error":f"An error occured with OpenAI:{str(e)}"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
+
 # class MyTokenObtainPairView(TokenObtainPairView):
 #     serializer_class=MyTokenObtainPairSerializer

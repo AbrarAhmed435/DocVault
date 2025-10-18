@@ -5,6 +5,7 @@ import { IoAddSharp } from "react-icons/io5";
 import api from "./api";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FIRST_NAME } from "./constants";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -16,6 +17,8 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false); // 👈 new state to toggle
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const navigate=useNavigate();
 
   useEffect(() => {
     const fn = localStorage.getItem(FIRST_NAME) || "";
@@ -156,8 +159,8 @@ export default function Home() {
           <ul>
             {patients.map((p) => (
               // <li key={p.id}>{p.name}{" "}{p.gender=='M'?"Male":"Female"}</li>
-              <li key={p.id}>
-                <p className="name">{p.name}</p>
+              <li key={p.id} >
+                <p className="name" onClick={()=> navigate(`/patient/${p.id}`,{state:{patient:p}})} style={{cursor:"pointer"}}>{p.name}</p>
                 <br />
                 <p>
                   {p.gender === "M"

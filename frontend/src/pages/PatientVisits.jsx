@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import api from "../api";
 import { IoAddSharp } from "react-icons/io5";
+import './Patient_Visits.css'
 
 export default function PatientVisits() {
   const { id } = useParams();
@@ -50,16 +51,37 @@ export default function PatientVisits() {
       toast.error("Visit was not Added");
     }
     fetchVisits();
+    setAiRes("");
+    setAskAi(false);
   };
+  const handleAskAiClick = () => {
+  if (!visits.length) {
+    toast.info("Patient has no visits yet");
+    return;
+  }
+
+  setAskAi(!askAi);
+  handleAskAi(visits);
+};
   const handleAskAi = async (visits) => {
+    
     // console.log(visits)
     if(askAi) return ;
     if(aires) return ;
     try {
       const res = await api.post("/api/askai/", { content: visits });
+      if(res.status==200){
       setAiRes(res.data.summary);
+      }
+      // if(res.status===204){
+      // console.log(res.data.warning)
+      // toast.info("Patient doesn't have any visits yet.");
+      // setAskAi(false);
+      // }
       console.log(aires);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -105,8 +127,8 @@ export default function PatientVisits() {
         </form>
       )}
       <ToastContainer position="top-center" autoClose={2000} />
-      <div onClick={() => setAskAi(!askAi)}>
-        <p onClick={() => handleAskAi(visits)}>Ask Ai🤖</p>
+      <div>
+        <p onClick={() => handleAskAiClick(visits)}><button className="Ask-ai-button">As Ai</button></p>
         {askAi && <div>{!aires ? <p>Loading...</p> : <p>{aires}</p>}</div>}
       </div>
       {loading ? (

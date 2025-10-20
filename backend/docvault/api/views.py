@@ -93,7 +93,7 @@ class VisitListCreateView(generics.ListCreateAPIView):
 @permission_classes([permissions.IsAuthenticated])
 def prompt_ai(request):
     content = request.data.get("content", [])
-    print(content)
+
 
     if not isinstance(content, list):
         return Response(
@@ -113,7 +113,7 @@ def prompt_ai(request):
     messages = [
         {
             "role": "system",
-            "content": "You are a medical assistant. Summarize the patient's visit history clearly for a doctor in a sentence like what is the issue with patient and what treament was give.Also what should be further done with patient"
+            "content": "You are a medical assistant. Summarize the patient's visit history clearly for a doctor in a sentence like what is the issue with patient and what treament was give so that docter can focus on new visit based on patients history .Also Suggest Future action if that is feasible, You can alos suggest tests if needed and also point out to wrong treatment if there is any. But mostly stay focus on providing docter a meaningfull history"
         },
         {
             "role": "user",

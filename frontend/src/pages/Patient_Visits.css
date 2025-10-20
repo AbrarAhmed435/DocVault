@@ -1,0 +1,156 @@
+.patient-visits-page {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+.patient-visits-page h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.patient-visits-page p {
+  margin: 0.4rem 0;
+}
+
+.patient-visits-page > p {
+  font-weight: 500;
+  color: #0077cc;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.patient-visits-page > p:hover {
+  color: #005fa3;
+}
+
+/* Form Styling */
+.visit_form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.visit_form input {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.visit_form input:focus {
+  outline: none;
+  border-color: #0077cc;
+}
+
+.visit_form button {
+  background: #0077cc;
+  color: #fff;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.visit_form button:hover {
+  background: #005fa3;
+}
+
+/* Visit List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+li {
+  background: #f0f6ff;
+  border-left: 5px solid #0077cc;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 119, 204, 0.2);
+}
+
+li p {
+  margin: 0.3rem 0;
+}
+
+/* AI Section */
+.patient-visits-page div > p:first-child {
+  text-align: center;
+  color: #0077cc;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.patient-visits-page div > p:first-child:hover {
+  color: #005fa3;
+  transform: scale(1.03);
+}
+
+.patient-visits-page div > div {
+  text-align: center;
+  background: #f8f9fa;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+/* Loading / Empty state */
+.patient-visits-page p.loading,
+.patient-visits-page p.empty {
+  text-align: center;
+  color: #777;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .patient-visits-page {
+    padding: 1.2rem;
+  }
+
+  .visit_form input,
+  .visit_form button {
+    font-size: 0.9rem;
+  }
+
+  li {
+    font-size: 0.9rem;
+  }
+}
+.Ask-ai-button{
+    border: none;
+    background-color: blue;
+    width: 80px;
+    border-radius: 10px;
+    height: 40px;
+    color:white
+}

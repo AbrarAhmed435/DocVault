@@ -10,5 +10,6 @@ urlpatterns = [
     path('addpatients/',PatientListCreateView.as_view(),name='patients'),
     path('patients/<int:patient_id>/visits/',VisitListCreateView.as_view(),name='patient_visites'),
     path('patients/<int:pk>/',PatientDeleteUpdateView.as_view(),name="patient_detail"),
-    path("askai/",prompt_ai,name="ask_ai")
+    path('delete/patient/visit/<int:pk>/',VisitRetrieveUpdateDeleteView.as_view(),name="delete_visit"),
+    path("askai/",prompt_ai,name="ask_ai"),
 ]

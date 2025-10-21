@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import api from "../api";
+import PatientSummary from "./PatientSummary";
 import { IoAddSharp } from "react-icons/io5";
 import './Patient_Visits.css'
 
@@ -19,6 +20,7 @@ export default function PatientVisits() {
   const [aires, setAiRes] = useState("");
 
   const fetchVisits = async () => {
+    console.log(patient)
     setLoading(true);
     try {
       const res = await api.get(`/api/patients/${id}/visits/`);
@@ -35,6 +37,8 @@ export default function PatientVisits() {
     fetchVisits();
   }, [id]);
 
+
+  
   const handleAddVisit = async (e) => {
     e.preventDefault();
 
@@ -69,7 +73,7 @@ export default function PatientVisits() {
     if(askAi) return ;
     if(aires) return ;
     try {
-      const res = await api.post("/api/askai/", { content: visits });
+      const res = await api.post("/api/askai/", { content: visits,patient:patient });
       if(res.status==200){
       setAiRes(res.data.summary);
       }
@@ -83,6 +87,19 @@ export default function PatientVisits() {
       console.log(error)
     }
   };
+
+  const handleDeleteVisit= async (id)=>{
+    
+    try{
+      const res=await api.delete(`/api/delete/patient/visit/${id}/`);
+      if(res.status===204){
+        toast.warn("visit deleted");
+      }
+    }catch(error){
+
+    }
+    fetchVisits();
+  }
 
   return (
     <div className="patient-visits-page">
@@ -126,10 +143,18 @@ export default function PatientVisits() {
           <button>Add</button>
         </form>
       )}
-      <ToastContainer position="top-center" autoClose={2000} />
+      <ToastContainer position="top-right" autoClose={2000} />
       <div>
         <p onClick={() => handleAskAiClick(visits)}><button className="Ask-ai-button">As Ai</button></p>
-        {askAi && <div>{!aires ? <p>Loading...</p> : <p>{aires}</p>}</div>}
+        {askAi && (
+    <div className="ai-response">
+      {!aires ? (
+        <p>Loading...</p>
+      ) : (
+        <PatientSummary summary={aires} />
+      )}
+    </div>
+  )}
       </div>
       {loading ? (
         <p>Loading visits...</p>
@@ -144,6 +169,7 @@ export default function PatientVisits() {
               <p>Treatment: {v.treatment}</p>
               {v.test && <p>Test: {v.test}</p>}
               <p>Date: {new Date(v.date_created).toLocaleString()}</p>
+              <button onClick={()=>handleDeleteVisit(v.id)}>🗑️</button>
             </li>
           ))}
         </ul>

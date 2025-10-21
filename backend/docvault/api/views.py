@@ -4,6 +4,7 @@ from .serializers import *
 from .models import *
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import get_list_or_404,get_object_or_404
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from openai import OpenAI
@@ -89,10 +90,39 @@ class VisitListCreateView(generics.ListCreateAPIView):
         patient=Patient.objects.get(id=patient_id,doctor=self.request.user)
         serializer.save(patient=patient)
 
+# class VisitRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset=Visit.objects.all()
+#     serializers_class=VisitSerializer
+#     permission_classes=[permissions.IsAuthenticated]
+    
+#     def  get_queryset(self):
+#         Visit.objects.get(patient__doctor=self.request.user)
+class VisitRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = VisitSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return get_object_or_404(
+            Visit,
+            pk=self.kwargs['pk'],
+            patient__doctor=self.request.user  # ✅ ensures visit belongs to logged-in doctor
+        )
+
+    def delete(self, request, *args, **kwargs):
+        visit = self.get_object()
+        visit.delete()
+        return Response({"message": "Visit deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+    
+    
+    
+
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated])
 def prompt_ai(request):
     content = request.data.get("content", [])
+    patient=request.data.get("patient",[])
+    
 
 
     if not isinstance(content, list):
@@ -109,11 +139,23 @@ def prompt_ai(request):
         f"Date - {v.get('date_created', 'N/A')}"
         for v in content
     ])
+    # print(patient["weight_kg"])
 
     messages = [
         {
             "role": "system",
-            "content": "You are a medical assistant. Summarize the patient's visit history clearly for a doctor in a sentence like what is the issue with patient and what treament was give so that docter can focus on new visit based on patients history .Also Suggest Future action if that is feasible, You can alos suggest tests if needed and also point out to wrong treatment if there is any. But mostly stay focus on providing docter a meaningfull history"
+            "content": f"""
+                    Patient details: Age: {patient['age']}, Weight: {patient['weight_kg']} kg, Height: {patient['height_cm']} cm, Gender: {patient['gender']}.
+
+                    You are a medical assistant. Summarize the patient's visit history in a concise, clear paragraph(200words) for a doctor highlight the important key words, focusing on:
+                    1. The main health issues observed.
+                    2. Treatments administered in previous visits.
+                    3. Any anomalies or inconsistencies in the treatments.
+                    4. Suggested future actions, including possible tests or follow-ups, if applicable.
+
+                    Stay focused on providing a meaningful and actionable summary of the patient's medical history that helps the doctor plan the next visit efficiently.
+                    """
+
         },
         {
             "role": "user",
@@ -127,7 +169,7 @@ def prompt_ai(request):
             messages=messages,
         )
         summary = response.choices[0].message.content
-        print(summary)
+        # print(summary)
         return Response({"summary": summary}, status=status.HTTP_200_OK)
 
     except Exception as e:

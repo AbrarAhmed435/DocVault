@@ -14,6 +14,7 @@ export default function Home() {
   const [weight_kg, setWeight] = useState();
   const [height_cm, setHeight] = useState();
   const [firstName, setFirstName] = useState("");
+  const [searchTerm,setSearchTerm]=useState("");
   const [showForm, setShowForm] = useState(false); // 👈 new state to toggle
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -153,11 +154,20 @@ export default function Home() {
       </div>
       <div className="patient_list">
         <h3>My Patients</h3>
+        <input type="text" 
+        placeholder="Search Patients..."
+        value={searchTerm}
+        onChange={(e)=>setSearchTerm(e.target.value)}
+        className="patient-search"
+        />
         {patients.length === 0 ? (
           <p className="no-patient">No Patients found</p>
         ) : (
           <ul>
-            {patients.map((p) => (
+            {patients.filter((p)=>{
+              if(!searchTerm) return true;
+              return p.name.toLowerCase().includes(searchTerm.toLowerCase());
+            }).map((p) => (
               // <li key={p.id}>{p.name}{" "}{p.gender=='M'?"Male":"Female"}</li>
               <li key={p.id} >
                 <p className="name" onClick={()=> navigate(`/patient/${p.id}`,{state:{patient:p}})} style={{cursor:"pointer"}}>{p.name}</p>

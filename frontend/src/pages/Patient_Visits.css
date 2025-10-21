@@ -1,156 +1,245 @@
 .patient-visits-page {
-  max-width: 700px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: "Poppins", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .patient-visits-page h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
   color: #2c3e50;
-  margin-bottom: 1rem;
-  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #3498db;
+  font-weight: 600;
 }
 
-.patient-visits-page p {
-  margin: 0.4rem 0;
+/* Add Visit Toggle */
+.patient-visits-page > p:first-of-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.patient-visits-page > p {
-  font-weight: 500;
-  color: #0077cc;
-  cursor: pointer;
-  text-align: center;
-  transition: color 0.3s ease;
+.patient-visits-page > p:first-of-type:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.patient-visits-page > p:hover {
-  color: #005fa3;
-}
-
-/* Form Styling */
+/* Visit Form */
 .visit_form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-top: 1rem;
-  background: #f8f9fa;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  border-left: 4px solid #3498db;
 }
 
 .visit_form input {
-  padding: 0.7rem;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+  border: 2px solid #e9ecef;
   border-radius: 8px;
-  font-size: 0.95rem;
-  transition: border-color 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
 }
 
 .visit_form input:focus {
   outline: none;
-  border-color: #0077cc;
+  border-color: #3498db;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.visit_form input::placeholder {
+  color: #6c757d;
 }
 
 .visit_form button {
-  background: #0077cc;
-  color: #fff;
-  padding: 0.7rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
+  padding: 12px 30px;
   border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .visit_form button:hover {
-  background: #005fa3;
-}
-
-/* Visit List */
-ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 1.5rem;
-}
-
-li {
-  background: #f0f6ff;
-  border-left: 5px solid #0077cc;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 10px rgba(0, 119, 204, 0.2);
-}
-
-li p {
-  margin: 0.3rem 0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* AI Section */
-.patient-visits-page div > p:first-child {
-  text-align: center;
-  color: #0077cc;
-  font-weight: 500;
+.Ask-ai-button {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.patient-visits-page div > p:first-child:hover {
-  color: #005fa3;
-  transform: scale(1.03);
+.Ask-ai-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.patient-visits-page div > div {
+/* AI Response */
+.patient-visits-page > div > div {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #ff6b6b;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.patient-visits-page > div > div p {
+  margin: 0;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+
+/* Loading and Empty States */
+.patient-visits-page > p {
   text-align: center;
-  background: #f8f9fa;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 10px;
-  font-style: italic;
+  padding: 3rem;
+  color: #6c757d;
+  font-size: 1.1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Visits List */
+.patient-visits-page ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.patient-visits-page li {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #27ae60;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.patient-visits-page li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+}
+
+.patient-visits-page li p {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.patient-visits-page li p:first-child {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.patient-visits-page li p:not(:first-child) {
   color: #555;
+  padding-left: 1rem;
+  border-left: 2px solid #e9ecef;
 }
 
-/* Loading / Empty state */
-.patient-visits-page p.loading,
-.patient-visits-page p.empty {
-  text-align: center;
-  color: #777;
-  margin-top: 2rem;
+/* Delete Button */
+.patient-visits-page li button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+.patient-visits-page li button:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+/* Toast Container Customization */
+.ToastContainer {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .patient-visits-page {
-    padding: 1.2rem;
+    padding: 15px;
   }
-
-  .visit_form input,
-  .visit_form button {
-    font-size: 0.9rem;
+  
+  .patient-visits-page h2 {
+    font-size: 1.5rem;
   }
-
-  li {
-    font-size: 0.9rem;
+  
+  .visit_form {
+    padding: 1.5rem;
+  }
+  
+  .patient-visits-page li {
+    padding: 1rem;
+  }
+  
+  .patient-visits-page li button {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 1rem;
+    width: 100%;
   }
 }
-.Ask-ai-button{
-    border: none;
-    background-color: blue;
-    width: 80px;
-    border-radius: 10px;
-    height: 40px;
-    color:white
+
+/* Animation for loading state */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.patient-visits-page > p:contains("Loading") {
+  animation: pulse 1.5s ease-in-out infinite;
 }

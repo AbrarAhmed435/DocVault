@@ -137,7 +137,7 @@ def prompt_ai(request):
             messages=messages,
         )
         summary = response.choices[0].message.content
-        # print(summary)
+        print(summary)
         return Response({"summary": summary}, status=status.HTTP_200_OK)
 
     except Exception as e:

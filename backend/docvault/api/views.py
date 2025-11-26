@@ -24,33 +24,7 @@ class RegisterView(generics.CreateAPIView):
         return Response(
             {"message":f"Doctor with Employeeid-{user.employee_id} created"},status=status.HTTP_201_CREATED
         )
-# class RegisterView(generics.CreateAPIView):
-#     serializer_class = RegisterSerializer
-#     authentication_classes = []
-#     permission_classes = [permissions.AllowAny]
-    
-#     def create(self, request, *args, **kwargs):
-#         print("=== REGISTER VIEW REACHED ===")
-#         print("Request data:", request.data)
-        
-#         serializer = self.get_serializer(data=request.data)
-        
-#         print("=== BEFORE VALIDATION ===")
-#         if not serializer.is_valid():
-#             print("=== VALIDATION ERRORS ===")
-#             print("Errors:", serializer.errors)
-#             print("Error details:", dict(serializer.errors))  # Fixed this line
-#             # This will raise the exception and return 400
-#             serializer.is_valid(raise_exception=True)
-        
-#         print("=== AFTER VALIDATION - SAVING ===")
-#         user = serializer.save()
-#         print("=== USER CREATED ===")
-        
-#         return Response(
-#             {"message": f"Doctor with Employeeid-{user.employee_id} created"}, 
-#             status=status.HTTP_201_CREATED
-#         )
+
 
 class PhoneTokenObtainPairView(TokenObtainPairView):
     serializer_class=PhoneTokenObtainPairSerializer
@@ -90,13 +64,7 @@ class VisitListCreateView(generics.ListCreateAPIView):
         patient=Patient.objects.get(id=patient_id,doctor=self.request.user)
         serializer.save(patient=patient)
 
-# class VisitRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset=Visit.objects.all()
-#     serializers_class=VisitSerializer
-#     permission_classes=[permissions.IsAuthenticated]
-    
-#     def  get_queryset(self):
-#         Visit.objects.get(patient__doctor=self.request.user)
+
 class VisitRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VisitSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -178,30 +146,3 @@ def prompt_ai(request):
             {"error": f"An error occurred with OpenAI: {str(e)}"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-# @api_view(["POST"])
-# @permission_classes([permissions.IsAuthenticated])
-# def prompt_ai(request):
-#     content=request.data.get("content",[])
-#     print(content)
-    
-#     if not isinstance(content,list):
-#         return Response({"error":"Invalid format, Expected list of messages"},status=status.HTTP_400_BAD_REQUEST)
-    
-    
-#     content.insert(0,{
-#         "role":"assistant",
-#         "content":"Give summary of patient visits so doctor can understand patients history"})
-#     try:
-#         response=client.chat.completions.create(
-#             model="gpt-4o-mini",
-#             messages=content
-#         )
-#         summary=response.choices[0].message.content
-#         return Response({"summary":summary},status=status.HTTP_200_OK)
-#     except Exception as e:
-#         print(e)
-#         return Response({"error":f"An error occured with OpenAI:{str(e)}"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class=MyTokenObtainPairSerializer
